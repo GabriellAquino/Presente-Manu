@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="containerr">
+    <div class="container">
+      <div class="box-degrade">
+        <div id="game" class="justify-center flex-column">
+          <h2 id="question"></h2>
+			<form>
+          <div class="choice-container">
+            <p class="choice-prefix" id="question-number"></p>
+			
+				<input type="text" id="answer" placeholder="Boa sorte Manu !!" class="choice-text"/>
+          	</div>
+          	<div>
+            	<input type="submit" value="Responder" class="choice-text"/>
+			      	<div id="answer"></div>
+			</form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+	const questions = [
+	{
+		question: "Em qual lugar saímos a sós pela primeira vez?",
+		answers: ["Cinema", "cinema", "shopping", "Shopping", "teste"],
+	},
+	{
+		question: "Quando a arvore de natal do shopping acendeu, estavamos aonde?",
+		answers: ["Mantovani", "mantovani", "teste"],
+	},
+	{
+		question: "Qual o primeiro jogo que jogamos juntos?",
+		answers: ["Fortnite", "fortnite", "teste"],
+	},
+	{
+		question: "Qual viagem que pensamos em fazer juntos?",
+		answers: ["Cruzeiro", "cruzeiro", "teste"],
+	},
+	{
+		question: "Onde jantamos no carnaval desse ano?",
+		answers: ["Pizzaria 430", "pizzaria 430", "430", "teste"],
+	},
+	{
+		question: "Quantas vezes já fomos trocar figurinhas juntos?",
+		answers: ["2", "duas", "Duas", "teste"],
+	},
+	{
+		question: "Qual o nome do filme que assistimos pela primeira vez no cinema?",
+		answers: ["Adão Negro", "adão negro", "teste"],
+	},
+	{
+		question: "Qual a frase que eu falava que voce odiava?",
+		answers: ["Manu vc tá brava cmg", "Manu voce tá brava comigo", "manu vc tá brava comigo", "manu vc tá brava comigo", "teste"],
+	},
+	];
+
+    const form = document.querySelector("form");
+    const questionElement = document.getElementById("question");
+    const answerElement = document.getElementById("answer");
+    const questionNumberElement = document.getElementById("question-number");
+
+    let currentQuestion = 0;
+
+    questionElement.textContent = questions[currentQuestion].question;
+    questionNumberElement.textContent = `${currentQuestion + 1}`;
+
+    form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const answer = answerElement.value.toLowerCase().trim();
+    const correctAnswers = questions[currentQuestion].answers;
+    const isCorrect = correctAnswers.some(
+        (correctAnswer) => answer === correctAnswer.toLowerCase()
+    );
+    answerElement.value = "";
+    if (isCorrect) {
+        currentQuestion++;
+        if (currentQuestion === questions.length) {
+        questionElement.textContent = "Você respondeu todas as perguntas!";
+        form.classList.add("hidden");
+        setTimeout(() => {
+            alert("Parabéns, você respondeu todas as perguntas!");
+            window.location.href = "surpresa"; // redireciona para outra página após 3 segundos
+        }, 3000);
+        } else {
+        questionElement.textContent = questions[currentQuestion].question;
+        questionNumberElement.textContent = `${currentQuestion + 1}`;
+        }
+    }
+    });
+
+</script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="containerr">
+        <div class="container">
+            <div class="box-degrade">
+                <div id="game" class="justify-center flex-column">
+                    <form id="password-form">
+                        <h1>Coloque a senha S2</h1>
+                        <input type="password" id="password" name="password" class="choice-text">
+                        <input type="submit" value="Enviar" class="btn"/>
+                    </form>
+                    <h3 id="secret-message" style="display: none;">https://docs.google.com/document/d/1YaROPNHLJSJc1gpXFppZYf_YM6FWzIaGMa6ouewMWN0/edit?usp=sharing</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+    <script>
+        const form = document.getElementById("password-form");
+        const passwordInput = document.getElementById("password");
+        const secretMessage = document.getElementById("secret-message");
+
+        form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const password = passwordInput.value;
+        if (password === "CONFIANÇA") {
+            secretMessage.style.display = "block";
+            form.style.display = "none";
+        } else {
+            alert("Senha incorreta! Tente novamente.");
+        }
+        });
+
+    </script>
+{% endblock %}
